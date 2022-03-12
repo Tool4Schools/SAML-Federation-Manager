@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,16 @@ class OrganisationFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => 'Sample Organisation',
+            'description' => 'Description about this great organisation',
+            'url' => 'https://somwhere.onthenet.tld',
         ];
+    }
+
+    public function createUser($overrides = [])
+    {
+        $organisation = $this->create($overrides);
+
+        return $organisation->users()->save(User::factory()->create());
     }
 }

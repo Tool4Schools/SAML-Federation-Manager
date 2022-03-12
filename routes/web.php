@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 Use App\Http\Controllers\OrganisationController;
-Use App\Http\Controllers\EntityController;
+Use App\Http\Controllers\ServiceProviderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,5 +25,5 @@ Route::middleware('auth')->group(function() {
 
 
 Route::resource('organisation',OrganisationController::class);
-Route::resource('entity',EntityController::class);
+Route::resource('serviceprovider',ServiceProviderController::class);
 });

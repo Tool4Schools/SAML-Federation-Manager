@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('entities', function (Blueprint $table) {
+        Schema::create('organisation_user', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('organisation_id');
+            $table->foreignId('user_id');
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('entities');
+        //
     }
 };

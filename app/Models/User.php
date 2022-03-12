@@ -41,4 +41,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function organisations()
+    {
+        return $this->belongsToMany(Organisation::class);
+    }
+
+   /* public function currentOrganisation()
+    {
+
+        // check if current organisation_id is set in session
+        // if not and user belongs to more than one organisation redirect to organisation selection page
+        // else just use the only one
+    }*/
 }

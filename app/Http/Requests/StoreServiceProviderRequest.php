@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreEntityRequest extends FormRequest
+class StoreServiceProviderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreEntityRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreEntityRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'entity_id'=>[],
+            'type'=>[],
         ];
     }
 }
