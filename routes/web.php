@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 Use App\Http\Controllers\OrganisationController;
+Use App\Http\Controllers\EntityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,13 @@ Use App\Http\Controllers\OrganisationController;
 Route::get('auth/login',function (){
     return 'show login form';
 })->name('login');
+
 Route::get('organisation/registration',[OrganisationController::class,'create']);
 Route::post('organisation/registration',[OrganisationController::class,'store']);
+
+Route::middleware('auth')->group(function() {
+
+
 Route::resource('organisation',OrganisationController::class);
+Route::resource('entity',EntityController::class);
+});
