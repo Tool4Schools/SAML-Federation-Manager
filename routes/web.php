@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 Use App\Http\Controllers\OrganisationController;
 Use App\Http\Controllers\ServiceProviderController;
+Use App\Http\Controllers\FederationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,4 +27,5 @@ Route::middleware('auth')->group(function() {
 
 Route::resource('organisation',OrganisationController::class);
 Route::resource('serviceprovider',ServiceProviderController::class);
+Route::resource('federation',FederationController::class);
 });
