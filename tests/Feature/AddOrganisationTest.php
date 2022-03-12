@@ -2,7 +2,8 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Testing\File;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -10,7 +11,7 @@ use App\Models\Organisation;
 
 class AddOrganisationTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     private function validParams($overrides =  [])
     {
@@ -24,7 +25,7 @@ class AddOrganisationTest extends TestCase
     /** @test */
     public function guest_can_view_the_organisation_registration_form()
     {
-        $response = $this->get('/organisation/create');
+        $response = $this->get('/organisation/registration');
 
         $response->assertStatus(200);
     }
@@ -32,7 +33,7 @@ class AddOrganisationTest extends TestCase
     /** @test */
     public function adding_a_valid_organisation()
     {
-        $response = $this->post('/organisation',[
+        $response = $this->post('/organisation/registration',[
             'name' => 'Tools4Schools',
             'description' => 'Tools4Schools provides all ICT needs for schools',
             'url' => 'https://tools4schools.org',
@@ -50,11 +51,11 @@ class AddOrganisationTest extends TestCase
     /** @test */
     public function name_is_required()
     {
-        $response = $this->from(url('/organisation/create'))->post('/organisation',$this->validParams([
+        $response = $this->from(url('/organisation/registration'))->post('/organisation/registration',$this->validParams([
             'name' => '',
         ]));
         $response->assertStatus(302);
-        $response->assertRedirect('/organisation/create');
+        $response->assertRedirect('/organisation/registration');
         $response->assertSessionHasErrors('name');
         $this->assertEquals(0, Organisation::count());
     }
@@ -62,11 +63,11 @@ class AddOrganisationTest extends TestCase
     /** @test */
     public function description_is_required()
     {
-        $response = $this->from(url('/organisation/create'))->post('/organisation',$this->validParams([
+        $response = $this->from(url('/organisation/registration'))->post('/organisation/registration',$this->validParams([
             'description' => '',
         ]));
         $response->assertStatus(302);
-        $response->assertRedirect('/organisation/create');
+        $response->assertRedirect('/organisation/registration');
         $response->assertSessionHasErrors('description');
         $this->assertEquals(0, Organisation::count());
     }
@@ -74,11 +75,11 @@ class AddOrganisationTest extends TestCase
     /** @test */
     public function url_is_required()
     {
-        $response = $this->from(url('/organisation/create'))->post('/organisation',$this->validParams([
+        $response = $this->from(url('/organisation/registration'))->post('/organisation/registration',$this->validParams([
             'url' => '',
         ]));
         $response->assertStatus(302);
-        $response->assertRedirect('/organisation/create');
+        $response->assertRedirect('/organisation/registration');
         $response->assertSessionHasErrors('url');
         $this->assertEquals(0, Organisation::count());
     }
@@ -90,7 +91,7 @@ class AddOrganisationTest extends TestCase
         Storage::fake('public');
         $file = File::image('logo.png',400,400);
 
-        $response = $this->from(url('/organisation/create'))->post('/organisation',$this->validParams([
+        $response = $this->from(url('/organisation/registration'))->post('/organisation/registration',$this->validParams([
             'logo' => $file,
         ]));
 

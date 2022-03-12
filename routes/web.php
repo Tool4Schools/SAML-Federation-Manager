@@ -16,4 +16,6 @@ Use App\Http\Controllers\OrganisationController;
 Route::get('auth/login',function (){
     return 'show login form';
 })->name('login');
+Route::get('organisation/registration',[OrganisationController::class,'create']);
+Route::post('organisation/registration',[OrganisationController::class,'store']);
 Route::resource('organisation',OrganisationController::class);
